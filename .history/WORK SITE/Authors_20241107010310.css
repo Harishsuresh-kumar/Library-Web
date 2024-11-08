@@ -1,0 +1,144 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+header {
+    background-color: #3b2a4e; /* Muted vintage color (deep plum) */
+    color: #f1e0c6; /* Soft off-white for text */
+    padding: 20px 0;
+    text-align: center;
+}
+
+header .logo h2 {
+    margin: 0;
+    font-size: 36px;
+    letter-spacing: 1px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #f1e0c6; /* Soft off-white for the link */
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+nav ul li a:hover {
+    border-bottom: 2px solid #f1e0c6; /* Accent color on hover */
+}
+
+/* Main Content */
+.content {
+    padding: 30px 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 48px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #3b2a4e; /* Muted vintage color for titles */
+}
+
+/* Author Section */
+.authors-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.author-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+/* Author Card */
+.author-card {
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    text-align: left;
+}
+
+.author-card:hover {
+    transform: translateY(-10px);
+}
+
+.author-card img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-bottom: 2px solid #3b2a4e; /* Color accent on card border */
+}
+
+.author-info {
+    padding: 20px;
+}
+
+.author-info h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #3b2a4e; /* Muted vintage color for author names */
+}
+
+.author-info p {
+    font-size: 16px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Buttons */
+button {
+    background-color: #3b2a4e; /* Muted vintage color for button */
+    color: #f1e0c6; /* Soft off-white for button text */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a4716d; /* Lighter warm color on hover */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .author-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .author-card {
+        width: 90%;
+    }
+}

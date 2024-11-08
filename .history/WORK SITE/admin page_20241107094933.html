@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Book Requests</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Manage Book Requests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Book Title</th>
+                <th>Priority</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="requestTableBody">
+            <!-- Book requests will be populated here -->
+        </tbody>
+    </table>
+
+    <button onclick="window.location.href='admin pa.html';">Return to Home Page</button>
+    <button onclick="window.location.href='add book.html';">ADD BOOK</button>
+    <button onclick="window.location.href='admin pass.html';">Back</button>
+
+
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Home - Library Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
+    <h2>Admin Home - Manage Library Members</h2>
+
+    <!-- List of Registered Members -->
+    <div class="container">
+        <h3>Current Library Members</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Membership ID</th>
+                </tr>
+            </thead>
+            <tbody id="membersList">
+                <!-- Members list will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <button onclick="window.location.href='admin pass.html'">Return to Admin Dashboard</button>
+
+    <script>
+        // Array to store members (retrieved from localStorage if available)
+        let members = JSON.parse(localStorage.getItem('members')) || [];
+
+        // Function to render the list of members
+        function renderMembersList() {
+            const tableBody = document.getElementById('membersList');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            members.forEach(member => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.name}</td>
+                    <td>${member.email}</td>
+                    <td>${member.memberId}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Load and display members list when the page loads
+        renderMembersList();
+    </script>
+
+    <script>
+        function isAdmin() {
+            return localStorage.getItem('isAdmin') === 'true';
+        }
+
+        function loadRequests() {
+            if (!isAdmin()) {
+                alert('You must be logged in as an admin!');
+                window.location.href = 'admin pass.html'; // Redirect to login if not admin
+                return;
+            }
+
+            const bookRequests = JSON.parse(localStorage.getItem('bookRequests')) || [];
+            const tableBody = document.getElementById('requestTableBody');
+            tableBody.innerHTML = ''; // Clear any existing rows
+
+            bookRequests.forEach((request, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${request.userName}</td>
+                    <td>${request.bookTitle}</td>
+                    <td>${request.priority}</td>
+                    <td id="status-${index}">${request.status}</td>
+                    <td class="action-buttons">
+                        <button onclick="updateStatus(${index}, 'Approved')">Approve</button>
+                        <button onclick="updateStatus(${index}, 'Rejected')">Reject</button>
+                        <button onclick="updateStatus(${index}, 'On Hold')">Hold</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        function updateStatus(index, newStatus) {
+            const bookRequests = JSON.parse(localStorage.getItem('bookRequests')) || [];
+            bookRequests[index].status = newStatus;
+            localStorage.setItem('bookRequests', JSON.stringify(bookRequests)); // Save updated requests
+            loadRequests(); // Re-render the table with updated data
+        }
+
+        // Load requests when the page is loaded
+        loadRequests();
+    </script>
+    
+
+
+
+</body>
+</html>

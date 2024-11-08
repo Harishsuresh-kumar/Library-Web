@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="page.css">
+    <title>SPIDER MAN</title>
+</head>
+<body>
+    <p>In the heart of New York City, young Peter Parker was juggling his life as a high school student with his secret role as Spider-Man. One crisp autumn evening, while swinging through the city’s skyline, his spider-sense tingled—a sign of danger nearby.</p>
+    
+    <div class="book-details">
+        <a href="page1.html" class="back-arrow">&#8592;</a>
+        <div class="row">
+            <div class="col-md-4">
+                <img id="bookImage" src="Naruto.jpeg" alt="Book Image" class="img-fluid rounded">
+            </div>
+            <div class="col-md-8">
+                <h2 id="bookName" style="color: orange;">Naruto</h2>
+                <p id="authorName">Author: Team Publications</p>
+                <p id="rentPrice">Rent: Rs.150</p>
+                <p id="rating">Rating: ★★★★☆</p>
+                <h3 style="font-weight: bold;">A Hero in the Shadows.</h3><br>
+                <p>In the heart of New York City...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Submit Button -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="downloadBook()" class="submit-button">Download PDF & Ship Book</button>
+    </div>
+    
+    <!-- JavaScript -->
+    <script>
+        function downloadBook() {
+            alert("PDF download successful!");
+            let address = prompt("Please enter your address for book shipping:");
+            
+            if (address) {
+                alert("Thank you! The book will be shipped to:\n" + address);
+            } else {
+                alert("Address input canceled.");
+            }
+        }
+    </script>
+    
+    <div class="pagination-container mt-4">
+        <div class="pagination">
+            <a href="page1.html" class="page-link">Page 1</a>
+            <a href="page1.html" class="page-link">Page 2</a>
+            <a href="page1.html" class="page-link">Page 3</a>
+            <a href="page1.html" class="page-link">Page 4</a>
+            <a href="page1.html" class="page-link">Page 5</a>
+            <a href="#page6" class="page-link">Page 6</a>
+            <a href="#page7" class="page-link">Page 7</a>
+            <a href="#page8" class="page-link">Page 8</a>
+            <a href="#page9" class="page-link">Page 9</a>
+            <a href="#page10" class="page-link">Page 10</a>
+        </div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Membership and Sign-In</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+
+
+    <script>
+        // Function to sign in
+        function signIn() {
+            const email = document.getElementById('signInEmail').value;
+
+            // Check if the email exists in the members array
+            const member = members.find(member => member.email === email);
+
+            if (member) {
+                alert(Welcome back, ${member.name}! Your Membership ID is: ${member.memberId});
+            } else {
+                alert("Email not registered. Please register for membership first.");
+            }
+
+            document.getElementById('signInEmail').value = '';
+        }
+
+        // Function to render the list of members
+        function renderMembersList() {
+            const tableBody = document.getElementById('membersList');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            members.forEach(member => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.name}</td>
+                    <td>${member.email}</td>
+                    <td>${member.memberId}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Render members list on page load
+        renderMembersList();
+    </script>
+
+
+
+    <div class="background"></div>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <body>
+            <div>
+            <form onsubmit="return validateForm()">
+                <input type="text" id="firstname" placeholder="First Name" required>
+                <input type="text" id="lastname" placeholder="Last Name" required>
+                <input type="text" id="number" placeholder="Phone Number" required>
+                <div id="number-error" style="display:none; color:red;">Please enter a valid phone number.</div>
+                <input type="text" id="mail-id" placeholder="Email" required>
+                <div id="email-error" style="display:none; color:red;">Please enter a valid email address.</div>
+                <input type="text" id="userid" placeholder="User ID" required>
+                <input type="password" id="password" placeholder="Password" required>
+            </form>
+        </div>
+        </body>
+
+        <body>
+            <div class="container">
+              <h1 style="font-weight: bolder;">Membership Plans</h1>
+          
+              <div class="plan-card">
+                <h2>1 Month Plan</h2>
+                <p>Rs 300</p>
+                <button id="activate-1-month">Activate</button> <!-- Added ID -->
+              </div>
+          
+              <div class="plan-card">
+                <h2>6 Month Plan</h2>
+                <p>Rs 750</p>
+                <button id="activate-6-month">Activate</button> <!-- Added ID -->
+              </div>
+          
+              <div class="plan-card">
+                <h2>1 Year Plan</h2>
+                <p>Rs 1000</p>
+                <button id="activate-1-year">Activate</button> <!-- Added ID -->
+              </div>
+            </div>
+          </body>
+
+    <body>
+    <div class="content"></div>
+    <h2>Choose Payment Method</h2>
+
+        <div class="payment-options">
+            <div class="option">
+                <img src="WORK SITE\G pay.jpeg" alt="gpay">
+                <h2>Google Pay</h2>
+                <button onclick="openPopup('Google Pay')">Choose</button>
+            </div>
+            <div class="option">
+                <img src="WORK SITE\card.jpeg" alt="cc">
+                <h2>Credit Card</h2>
+                <button onclick="openPopup('Credit Card')">Choose</button>
+            </div>
+            <div class="option">
+                <img src="WORK SITE\bank.png" alt="bank">
+                <h2>Bank Transfer</h2>
+                <button onclick="openPopup('Bank Transfer')">Choose</button>
+            </div>
+        </div>
+    </div>
+    
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2 id="payment-method"></h2>
+            <form id="payment-form">
+                <div id="payment-details"></div>
+                <button onclick="submit; window.location.href='user.html'">Submit</button>
+            </form>
+        </div>
+    </div>
+    </body>
+
+    <script>
+        function openPopup(method) {
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("payment-method").innerText = method;
+            
+            const paymentDetails = document.getElementById("payment-details");
+            paymentDetails.innerHTML = '';
+    
+            if (method === 'Google Pay') {
+                paymentDetails.innerHTML = '<label for="googlepay-id">Google Pay ID:</label><input type="text" id="googlepay-id" placeholder="example@axisbank" name="googlepay-id" pattern="^[0-9A-Za-z]{2,256}@[A-Za-z]{2,64}$" required>';
+            } else if (method === 'Credit Card') {
+                paymentDetails.innerHTML = `
+                    <label for="cc-number">Card Number:</label><input type="text" id="cc-number" pattern="^[0-9]{12}$" placeholder="12 digits" name="cc-number" required>
+                    <label for="cc-expiry">Expiry Date:</label><input type="text" id="cc-expiry" pattern="^(0[1-9]|1[0-2])\/?([0-9]{2})$" placeholder="MM/YY" name="cc-expiry" required>
+                    <label for="cc-cvc">CVC:</label><input type="text" id="cc-cvv" placeholder="only 3 digits" name="cc-cvv" required>
+                `;
+            } else if (method === 'Bank Transfer') {
+                paymentDetails.innerHTML = `
+                    <label for="bank-account">Bank Account Number:</label><input type="text" id="bank-account" pattern="^[0-9]{10}$" placeholder="10 digits" name="bank-account" required>
+                    <label for="bank-routing">Routing Number:</label><input type="text" id="bank-routing" pattern="^[A-Za-z]{4}[0-9]{4}$" placeholder="abcd1234" name="bank-routing" required>
+                `;
+            }
+        }
+    
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    
+        document.getElementById('payment-form').onsubmit = function(event) {
+            event.preventDefault(); 
+            const form = event.target;
+    
+            if (form.checkValidity()) {
+                // Generate a membership ID
+                const membershipID = 'MEM-' + Math.floor(Math.random() * 100000);
+                const selectedPlan = localStorage.getItem("SelectedPlan");
+                localStorage.setItem(membershipID, selectedPlan);
+    
+                alert("Your payment is complete. Your Membership ID is: " + membershipID);
+    
+                // Redirect to the payment page
+                window.location.href = "Membership.html"; 
+            } else {
+                form.reportValidity(); 
+            }
+        };
+    </script>
+
+</body>
+</html>

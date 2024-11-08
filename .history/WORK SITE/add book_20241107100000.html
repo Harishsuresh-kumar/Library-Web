@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Books</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .admin-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .action-buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+        .action-buttons button {
+            margin: 5px;
+        }
+        .form-container {
+            margin-top: 20px;
+        }
+        .form-container input {
+            padding: 10px;
+            margin: 10px;
+            width: 100%;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        .filter-container {
+            margin-bottom: 20px;
+        }
+        .filter-container select {
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Admin - Manage Books</h2>
+
+    <div class="admin-container">
+        <!-- Form to Add Book -->
+        <div class="form-container">
+            <h3>Add New Book</h3>
+            <input type="text" id="newBookTitle" placeholder="Book Title" required>
+            <input type="text" id="newBookAuthor" placeholder="Author" required>
+            <input type="text" id="newBookGenre" placeholder="Genre" required>
+            <input type="number" id="newBookYear" placeholder="Year of Publication" required>
+            <button onclick="addBook()">Add Book</button><br><br>            
+            <button onclick="window.location.href='adminHome.html';">View Book Requests</button><br>
+            <br>
+            <button onclick="window.location.href='user.html';">Home</button>
+        </div>
+
+        <!-- Table to View Books -->
+        <h3>Books List</h3>
+        <table>
+            <thead>
+                <tr style="fo">
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Genre</th>
+                    <th>Year</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="bookTableBody">
+                <!-- Book data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Load books from localStorage or initialize an empty array if not present
+        let books = JSON.parse(localStorage.getItem('books')) || [];
+
+        // Function to add a book to localStorage
+        function addBook() {
+            const title = document.getElementById('newBookTitle').value;
+            const author = document.getElementById('newBookAuthor').value;
+            const genre = document.getElementById('newBookGenre').value;
+            const year = document.getElementById('newBookYear').value;
+
+            const newBook = { 
+                id: books.length + 1, 
+                title: title, 
+                author: author, 
+                genre: genre,
+                year: year
+            };
+            
+            books.push(newBook);  // Add the new book to the array
+            localStorage.setItem('books', JSON.stringify(books));  // Save the updated books array to localStorage
+            renderBooks();  // Re-render the books table
+        }
+
+        // Function to render books in the table
+        function renderBooks() {
+            const tableBody = document.getElementById('bookTableBody');
+            tableBody.innerHTML = '';  // Clear the table before rendering
+            books.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.genre}</td>
+                    <td>${book.year}</td>
+                    <td class="action-buttons">
+                        <button onclick="editBook(${book.id})">Edit</button>
+                        <button onclick="deleteBook(${book.id})">Delete</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Edit a book
+        function editBook(bookId) {
+            const book = books.find(b => b.id === bookId);
+            if (book) {
+                const newTitle = prompt("Edit Title:", book.title);
+                const newAuthor = prompt("Edit Author:", book.author);
+                const newGenre = prompt("Edit Genre:", book.genre);
+                const newYear = prompt("Edit Year:", book.year);
+
+                if (newTitle) book.title = newTitle;
+                if (newAuthor) book.author = newAuthor;
+                if (newGenre) book.genre = newGenre;
+                if (newYear) book.year = newYear;
+
+                localStorage.setItem('books', JSON.stringify(books));  // Save the updated books array to localStorage
+                renderBooks();  // Re-render the books table with updated details
+            }
+        }
+
+        // Delete a book
+        function deleteBook(bookId) {
+            books = books.filter(b => b.id !== bookId);  // Remove book from the array
+            localStorage.setItem('books', JSON.stringify(books));  // Save the updated books array to localStorage
+            renderBooks();  // Re-render the books table without the deleted book
+        }
+
+        // Initial rendering of books
+        renderBooks();
+    </script>
+
+    <h2>User Management</h2>
+    <div class="filter-container">
+        <label for="GenreFilter">Filter by Genre:</label>
+        <select id="GenreFilter" onchange="filterBooks()">
+            <option value="">All</option>
+            <option value="Fiction">Fiction</option>
+            <option value="Non-fiction">Non-fiction</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Biography">Biography</option>
+        </select>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody id="filteredBookTableBody">
+            <!-- Filtered books will be displayed here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Filter books by genre
+        function filterBooks() {
+            const selectedGenre = document.getElementById('GenreFilter').value;
+            const filteredBooks = selectedGenre ? books.filter(book => book.genre === selectedGenre) : books;
+            displayFilteredBooks(filteredBooks);
+        }
+
+        // Display filtered books in the table
+        function displayFilteredBooks(booksToDisplay) {
+            const tableBody = document.getElementById('filteredBookTableBody');
+            tableBody.innerHTML = '';  // Clear existing rows
+
+            booksToDisplay.forEach(book => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${book.title}</td>
+                    <td>${book.author}</td>
+                    <td>${book.genre}</td>
+                    <td>${book.year}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Initial display of all books
+        displayFilteredBooks(books);
+    </script>
+
+</body>
+</html>

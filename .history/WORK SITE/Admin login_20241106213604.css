@@ -1,0 +1,125 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-image: url('Admin image.jpg'); /* Background image */
+    color: #444;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+header {
+    background-color: #003366; /* Dark blue for the header */
+    color: #fff;
+    padding: 1rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+header h2 {
+    margin: 0;
+    color: #e6e6e6;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    margin: 0;
+}
+
+nav ul li {
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: #e6e6e6;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+nav ul li a:hover {
+    color: #66ccff; /* Light blue on hover */
+}
+
+.login-section {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: center;
+}
+
+.overlay {
+    background-color: rgba(255, 255, 255, 0.9); /* White with slight transparency */
+    padding: 2rem;
+    max-width: 400px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#loginContainer h2 {
+    margin-bottom: 20px;
+    color: #003366; /* Dark blue */
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #003366; /* Dark blue */
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+button.btn {
+    background-color: #3399ff; /* Medium blue */
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+    background-color: #007acc; /* Darker blue on hover */
+}
+
+footer {
+    background-color: #003366; /* Dark blue */
+    color: #e6e6e6;
+    text-align: center;
+    padding: 1rem;
+    margin-top: auto;
+}

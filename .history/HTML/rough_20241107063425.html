@@ -1,0 +1,102 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header styling */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+}
+
+header h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin-right: 15px;
+}
+
+header nav ul li a.button {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+header nav ul li a.button:hover {
+    color: #ddd;
+}
+
+/* Main content styling */
+.main .content {
+    margin-top: 20px;
+}
+
+.genres-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.genre-card {
+    width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    text-align: center;
+    overflow: hidden;
+    background-color: #fff;
+    transition: transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.genre-card:hover {
+    transform: scale(1.05);
+}
+
+.genre-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.genre-title {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Footer styling (empty footer) */
+footer {
+    margin-top: 30px;
+    padding: 10px;
+    text-align: center;
+    color: #999;
+}

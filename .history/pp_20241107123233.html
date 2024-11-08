@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Scroll Reader</title>
+  <link rel="stylesheet" href="/User/CSS/book_read_book1.css">
+</head>
+#pdf-reader {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow-y: auto;
+    height: 90vh;
+    border: 1px solid #ccc;
+}
+.pdf-page {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+.pdf-canvas {
+    border: 1px solid #ddd;
+}
+</style
+
+<body>
+    <h2 style="color: rgb(77, 148, 6);text-align: center;font-style: italic;size: 20px">Quarter to Midnight by Karen Rose</h2>
+
+    <!-- PDF Reader Container -->
+    <div id="pdf-reader"></div>
+
+    <!-- PDF.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="/User/JS/book_read_book1.js">  
+    </script>
+</body>
+</html>
+
+<script>
+ // PDF.js variables
+ const url = '/Naruto The Movie Book.pdf';
+ let pdfDoc = null,
+     scale = 1.5;
+
+ // Load the PDF document
+ pdfjsLib.getDocument(url).promise.then(pdf => {
+     pdfDoc = pdf;
+
+     // Render all pages
+     for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+         renderPage(pageNum);
+     }
+ });
+
+ // Render a specific page
+ function renderPage(num) {
+     pdfDoc.getPage(num).then(page => {
+         const viewport = page.getViewport({ scale: scale });
+         
+         // Create a new canvas for each page
+         const canvas = document.createElement('canvas');
+         canvas.className = 'pdf-canvas';
+         canvas.width = viewport.width;
+         canvas.height = viewport.height;
+
+         // Create a wrapper div for each page to center it
+         const pageDiv = document.createElement('div');
+         pageDiv.className = 'pdf-page';
+         pageDiv.appendChild(canvas);
+         document.getElementById('pdf-reader').appendChild(pageDiv);
+
+         // Render the page into the canvas context
+         const context = canvas.getContext('2d');
+         const renderContext = {
+             canvasContext: context,
+             viewport: viewport
+         };
+         page.render(renderContext);
+     });
+ }
+</script>

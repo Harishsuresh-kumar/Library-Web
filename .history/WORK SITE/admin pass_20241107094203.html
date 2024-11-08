@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { padding: 10px; margin: 10px; width: 50%; }
+    </style>
+</head>
+<body>
+    <h2>Admin Login</h2>
+    <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+    <button onclick="login()">Login</button>
+
+    <script>
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            const adminPassword = 'admin123'; // hardcoded password, ideally should be more secure
+
+            if (password === adminPassword) {
+                localStorage.setItem('isAdmin', 'true');
+                window.location.href = 'admi.html'; // Redirect to admin home page
+            } else {
+                alert('Invalid password!');
+            }
+        }
+    </script>
+</body>
+</html>

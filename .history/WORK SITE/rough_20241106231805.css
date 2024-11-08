@@ -1,0 +1,119 @@
+/* Base Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Light grey background */
+    color: #333;
+}
+
+/* Wrapper */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    background-color: #D9CFC1; /* Soft beige */
+    color: #4B3832;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo h2 {
+    font-size: 24px;
+    margin: 0;
+    color: #4B3832;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+nav ul li a {
+    color: #4B3832;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #E9E2D0; /* Slight background change on hover */
+}
+
+/* Main Content */
+main.content {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+}
+
+/* Header Title */
+.header h1 {
+    font-size: 2rem;
+    color: #4B3832;
+    margin-bottom: 1rem;
+}
+
+/* Genres Section */
+.genres-section {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.genre-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.genre-card {
+    background-color: #fff;
+    width: 180px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    color: #333;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.genre-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.genre-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-bottom: 2px solid #D9CFC1;
+}
+
+.genre-title {
+    padding: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #4B3832;
+    text-align: center;
+}
+
+/* Footer */
+footer {
+    background-color: #D9CFC1;
+    color: #4B3832;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
+    border-top: 1px solid #ccc;
+}

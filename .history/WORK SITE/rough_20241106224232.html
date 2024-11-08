@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Page - Endless Reading Vault</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/book.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo">
+        
+                <h2>SHADES BOOKS</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html" class="button">HOME</a></li>
+                    <li><a href="genre.html">GENRES</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="search-section">
+            <input type="text" id="searchBar" placeholder="Search for books...">
+            <button onclick="searchBooks()">Search</button>
+        </section>
+        <section class="booklist-section">
+            <h1>Books</h1>
+            <div class="book-list" id="bookList">
+                <!-- Book items will be injected here -->
+            </div>
+            <button id="showMoreButton" onclick="showMoreBooks()" style="display: none;">Show More</button>
+        </section>
+        <footer>
+        </footer>
+    </div>
+    <script>
+        // Mock user login status (set to false to simulate a non-logged-in user)
+        const isUserLoggedIn = false;
+
+       // Sample books array with book details
+       const books = [
+            {
+                title: "Inside Out",
+                author: "Pete Doctor",
+                rent: "Rs 200",
+                image: "download (1).jpeg",
+                link: "book-details.html?book=CallOfTheSeriens"
+            },
+            {
+                title: "Naruto",
+                author: "Masahi ",
+                rent: "Rs 1400",
+                image: "Naruto.jpeg",
+                link: "book-details.html?book=WitchingHour"
+            },
+            {
+                title: "The Secret of Magic",
+                author: "Deborah Johnson",
+                rent: "Rs 650",
+                image: "./images/book3.jpg",
+                link: "book-details.html?book=TheSecretOfMagic"
+            },
+            {
+                title: "Dark and Hollow Star",
+                author: "Ashley Shuttleworth",
+                rent: "Rs 500",
+                image: "./images/book4.jpg",
+                link: "book-details.html?book=DarkAndHollowStar"
+            },
+            {
+                title: "A Ruinous Fate",
+                author: "Kayle Smith",
+                rent: "Rs 440",
+                image: "./images/book5.jpg",
+                link: "book-details.html?book=ARuinousFate"
+            },
+            {
+                title: "Sapiens",
+                author: "Yuval Noah",
+                rent: "Rs 580",
+                image: "./images/nonfict1.jpg",
+                link: "book-details.html?book=Sapiens"
+            },
+            {
+                title: "I Know Why The Caged Bird Sings",
+                author: "Maya Angelou",
+                rent: "Rs 470",
+                image: "./images/nonfict2.jpg",
+                link: "book-details.html?book=IKnowWhyTheCagedBirdSings"
+            },
+            {
+                title: "The Autobiography of Alice",
+                author: "Alice B Toklas",
+                rent: "Rs 600",
+                image: "./images/nonfict3.jpg",
+                link: "book-details.html?book=TheAutobiographyofAlice"
+            },
+            {
+                title: "The Snake Head",
+                author: "Patrick Radden",
+                rent: "Rs 800",
+                image: "./images/nonfict4.jpg",
+                link: "book-details.html?book=TheSnakeHead"
+            },
+            {
+                title: "Lady Doctors", 
+                author: "Kavitha Rao",
+                rent: "Rs 600",
+                image: "./images/nonfict5.jpg",
+                link: "book-details.html?book=LadyDoctors"
+            },
+            {
+                title: "The Book of Lost Names",
+                author: "Kristin Harmel",
+                rent: "Rs 700",
+                image: "./images/fiction1.jpg",
+                link: "book-details.html?book=TheBookofLostNames"
+            },
+            {
+                title: "Story of a New Name",
+                author: "Elena Ferrante",
+                rent: "Rs 1000",
+                image: "./images/fiction2.jpg",
+                link: "book-details.html?book=StoryofaNewName"
+            },
+            {
+                title: "The Name of the Wind",
+                author: "Patrick Rothfuss",
+                rent: "Rs 690",
+                image: "./images/fiction3.jpg",
+                link: "book-details.html?book=TheNameoftheWind"
+            },
+            {
+                title: "The Wind Knows My Name",
+                author: "Isabel Allende",
+                rent: "Rs 550",
+                image: "./images/fiction4.jpg",
+                link: "book-details.html?book=TheWindKnowsMyName"
+            },
+            {
+                title: "Code Name Sapphire",
+                author: "Pam Jenof",
+                rent: "Rs 870",
+                image: "./images/fiction5.jpg",
+                link: "book-details.html?book=CodeNameSapphire"
+            },
+            {
+                title: "All The Dangerous Things",
+                author: "Stacy Willingham",
+                rent: "Rs 500",
+                image: "./images/mystery1.jpg",
+                link: "book-details.html?book=AllTheDangerousThings"
+            },
+            {
+                title: "If She Knew",
+                author: "Black Pierce",
+                rent: "Rs 400",
+                image: "./images/mystery2.jpg",
+                link: "book-details.html?book=IfSheKnew"
+            },
+            {
+                title: "The Sherlock Holmes",
+                author: "Arthur Conan Doyle",
+                rent: "Rs 600",
+                image: "./images/mystery3.jpg",
+                link: "book-details.html?book=TheSherlockHolmes"
+            },
+            // Add more books as needed
+        ];
+
+        const booksPerBatch = 5; // Number of books to show initially and per batch
+        let currentBatch = 0;
+
+        function displayBooks(bookList, batch) {
+            const bookListElement = document.getElementById('bookList');
+            const startIndex = batch * booksPerBatch;
+            const endIndex = startIndex + booksPerBatch;
+            const booksToDisplay = bookList.slice(startIndex, endIndex);
+
+            booksToDisplay.forEach((book, index) => {
+                const bookItem = document.createElement('div');
+                bookItem.className = 'book-item';
+                bookItem.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}" class="book-cover">
+                    <div class="book-info">
+                        <h3 onclick="redirectToBookPage('${book.link}')">${book.title}</h3>
+                        <p>Author: ${book.author}</p>
+                        <p>Rent: ${book.rent}</p>
+                        <button id="payButton-${startIndex + index}">Pay</button>
+                    </div>
+                `;
+                bookListElement.appendChild(bookItem);
+
+                // Attach event listener for each button
+                document.getElementById(`payButton-${startIndex + index}`).addEventListener('click', function() {
+                    handlePayClick(book);
+                });
+            });
+
+            // Check if there are more books to display
+            if (endIndex < bookList.length) {
+                document.getElementById('showMoreButton').style.display = 'block';
+            } else {
+                document.getElementById('showMoreButton').style.display = 'none';
+            }
+        }
+
+        function redirectToBookPage(link) {
+            window.location.href = link;
+        }
+
+        function handlePayClick(book) {
+            if (isUserLoggedIn) {
+                // If user is not logged in, show alert and redirect to home on OK
+                alert("Please log in or register to buy a book.");
+                window.location.href = "home.html";
+            } else {
+                redirectToPayment(book);
+            }
+        }
+
+        function redirectToPayment(book) {
+            // Redirect to payment page with book details as query parameters
+            const params = new URLSearchParams({
+                title: book.title,
+                author: book.author,
+                rent: book.rent,
+                image: book.image
+            });
+            window.location.href = `payment1.html?${params.toString()}`;
+        }
+
+        function searchBooks() {
+            const searchBar = document.getElementById('searchBar');
+            const searchText = searchBar.value.toLowerCase();
+            const filteredBooks = books.filter(book => 
+                book.title.toLowerCase().includes(searchText) || 
+                book.author.toLowerCase().includes(searchText)
+            );
+
+            // Reset to first batch for search results
+            currentBatch = 0;
+            document.getElementById('bookList').innerHTML = '';
+            displayBooks(filteredBooks, currentBatch);
+        }
+
+        function showMoreBooks() {
+            currentBatch++;
+            displayBooks(books, currentBatch);
+        }
+
+        // Display the first batch of books on page load
+        window.onload = () => {
+            displayBooks(books, currentBatch);
+        }
+    </script>
+</body>
+</html>

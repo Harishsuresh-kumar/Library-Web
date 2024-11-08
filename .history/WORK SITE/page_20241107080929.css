@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px; 
+    background-color: #f4f4f4;
+    background-size: cover;  
+    background-position: center;
+}
+
+.book-details {
+
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+.back-arrow {
+    position: absolute;
+    top: 60px;
+    left: 50px;
+    background-color: #fff;
+    border-radius: 50%;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+    font-size: 24px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.back-arrow:hover {
+    background-color: #f0f0f0;
+}
+
+h2 {
+    font-size: 28px;
+    color: #000; 
+
+p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+}
+
+.pagination-container {
+    background-color: #9dbbda; 
+    padding: 20px; 
+    margin: 0 auto; 
+    border-radius: 10px;
+    width: 3000px; 
+    max-width: 1500px;
+}
+
+.pagination {
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.page-link {
+    text-decoration: none;
+    color: #560102;
+    padding: 10px; 
+    border: 1px solid#F9D689
+    ;
+    border-radius: 4px;
+    background-color: #a99f92;
+    text-align: left;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 100%; 
+    box-sizing: border-box;
+}
+
+.page-link:hover {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+@media (max-width: 600px) {
+
+    .pagination-container {
+        padding: 10px; 
+    }
+
+    .page-link {
+        padding: 8px; 
+    }
+}

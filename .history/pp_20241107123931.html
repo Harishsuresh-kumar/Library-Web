@@ -1,0 +1,41 @@
+<!-- Zoom Controls -->
+<div style="text-align: center; margin-top: 10px;">
+    <button onclick="zoomOut()">-</button>
+    <span id="zoom-level">100%</span>
+    <button onclick="zoomIn()">+</button>
+</div>
+
+<script>
+let scale = 1.5;
+
+function zoomIn() {
+    scale += 0.1;
+    updateZoom();
+}
+
+function zoomOut() {
+    if (scale > 0.5) scale -= 0.1;
+    updateZoom();
+}
+
+function updateZoom() {
+    document.getElementById('pdf-reader').innerHTML = '';
+    document.getElementById('zoom-level').innerText = `${Math.round(scale * 100)}%`;
+    loadPDF();
+}
+
+function loadPDF() {
+    pdfjsLib.getDocument(url).promise.then(pdf => {
+        pdfDoc = pdf;
+        for (let pageNum = 1; pageNum <= pdfDoc.numPages; pageNum++) {
+            renderPage(pageNum);
+        }
+    }).catch(error => {
+        console.error("Error loading PDF: ", error);
+        document.getElementById('pdf-reader').innerHTML = '<p style="color: red; text-align: center;">Failed to load PDF.</p>';
+    });
+}
+
+// Initial load
+loadPDF();
+</script>

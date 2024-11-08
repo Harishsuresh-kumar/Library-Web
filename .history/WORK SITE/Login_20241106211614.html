@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="logo">
+                <img src="./images/logo.jpg" alt="Library Logo">
+                <h2>ENDLESS READING VAULT</h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="home.html">HOME</a></li>
+                </ul>
+            </nav>
+        </header>
+        <section class="login-section">
+            <div class="overlay">
+                <div class="container">
+                    <div id="loginContainer">
+                        <h2>Login</h2>
+                        <form id="loginForm">
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button type="submit" class="btn btn-danger">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <p>&copy; 2024 Endless Reading Vault. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Predefined admin and user credentials
+            const adminUsername = 'Admin';
+            const adminPassword = '1234';
+            const userUsername = '';
+            const userPassword = '1234';
+
+            // Check for admin credentials
+            if (username === adminUsername && password === adminPassword) {
+                window.location.href = 'admin.html';  // Redirect to admin page
+                return;
+            }
+            // Check for standard user credentials
+            else if (username === userUsername && password === userPassword) {
+                window.location.href = 'user.html';  // Redirect to user page
+                return;
+            }
+
+            // Check for registered user credentials in local storage
+            const storedUser = JSON.parse(localStorage.getItem('username_' + username));
+            if (storedUser && storedUser.password === password) {
+                window.location.href = 'user.html';  // Redirect to user page
+            } else {
+                alert('Invalid username or password');  // Alert for invalid credentials
+            }
+        });
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'home.html';  // Redirect to home on logout
+            }
+        }
+    </script>
+    
+</body>
+</html>

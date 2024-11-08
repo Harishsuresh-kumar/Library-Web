@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library Membership and Sign-In</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        padding: 20px;
+    }
+    h2, h3 {
+        text-align: center;
+        color: #333;
+    }
+    .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+        align-items: center;
+
+    }
+     button {
+        min-width: 50%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+    }
+    button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    table, th, td {
+        border: 1px solid #ccc;
+        padding: 12px;
+        text-align: left;
+    }
+    th {
+        background-color: #4CAF50;
+        color: white;
+    }
+    </style>
+</head>
+<body>
+    <!-- Membership Plan Selection Section -->
+    <div class="container">
+        <h1 style="font-weight: bolder;">Membership Plans</h1>
+        <div class="plan-card">
+            <h2>1 Month Plan</h2>
+            <p>Rs 300</p>
+            <button id="activate-1-month" onclick="selectPlan('1 Month Plan')">Activate</button>
+        </div>
+        <div class="plan-card">
+            <h2>6 Month Plan</h2>
+            <p>Rs 750</p>
+            <button id="activate-6-month" onclick="selectPlan('6 Month Plan')">Activate</button>
+        </div>
+        <div class="plan-card">
+            <h2>1 Year Plan</h2>
+            <p>Rs 1000</p>
+            <button id="activate-1-year" onclick="selectPlan('1 Year Plan')">Activate</button>
+        </div>
+    </div>
+
+    <!-- Payment Method Selection Section -->
+    <h2>Choose Payment Method</h2>
+    <div class="payment-options">
+        <div class="option">
+            <img src="./G pay.jpeg" alt="Google Pay">
+            <h2>Google Pay</h2>
+            <button onclick="openPopup('Google Pay')">Choose</button>
+        </div>
+        <div class="option">
+            <img src="./card.jpeg" alt="Credit Card">
+            <h2>Credit Card</h2>
+            <button onclick="openPopup('Credit Card')">Choose</button>
+        </div>
+        <div class="option">
+            <img src="./bank.png" alt="Bank Transfer">
+            <h2>Bank Transfer</h2>
+            <button onclick="openPopup('Bank Transfer')">Choose</button>
+        </div>
+    </div>
+
+    <!-- Payment Popup -->
+    <div id="popup" class="popup" style="display:none;">
+        <div class="popup-content">
+            <span class="close" onclick="closePopup()">&times;</span>
+            <h2 id="payment-method"></h2>
+            <form id="payment-form">
+                <div id="payment-details"></div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedPlan = null;
+        let selectedPaymentMethod = null;
+
+        // Function to select a membership plan
+        function selectPlan(plan) {
+            selectedPlan = plan;
+            localStorage.setItem("SelectedPlan", selectedPlan);
+            alert(`Selected Plan: ${selectedPlan}`);
+        }
+
+        // Function to open the payment method popup
+        function openPopup(method) {
+            selectedPaymentMethod = method;
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("payment-method").innerText = method;
+
+            const paymentDetails = document.getElementById("payment-details");
+            paymentDetails.innerHTML = '';
+
+            if (method === 'Google Pay') {
+                paymentDetails.innerHTML = '<label for="googlepay-id">Google Pay ID:</label><input type="text" id="googlepay-id" placeholder="example@axisbank" required>';
+            } else if (method === 'Credit Card') {
+                paymentDetails.innerHTML = `
+                    <label for="cc-number">Card Number:</label><input type="text" id="cc-number" placeholder="12 digits" required>
+                    <label for="cc-expiry">Expiry Date:</label><input type="text" id="cc-expiry" placeholder="MM/YY" required>
+                    <label for="cc-cvc">CVC:</label><input type="text" id="cc-cvc" placeholder="3 digits" required>
+                `;
+            } else if (method === 'Bank Transfer') {
+                paymentDetails.innerHTML = `
+                    <label for="bank-account">Bank Account Number:</label><input type="text" id="bank-account" placeholder="10 digits" required>
+                    <label for="bank-routing">Routing Number:</label><input type="text" id="bank-routing" placeholder="abcd1234" required>
+                `;
+            }
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        // On form submit, validate if plan and payment method are selected
+        document.getElementById('payment-form').onsubmit = function(event) {
+            event.preventDefault();
+
+            if (!selectedPlan) {
+                alert("Please select a membership plan.");
+                return;
+            }
+
+            if (!selectedPaymentMethod) {
+                alert("Please select a payment method.");
+                return;
+            }
+
+            // Generate a membership ID and save the selected plan
+            const membershipID = 'MEM-' + Math.floor(Math.random() * 100000);
+            localStorage.setItem(membershipID, selectedPlan);
+
+            alert(`Your payment is complete. Your Membership ID is: ${membershipID}`);
+
+            // Redirect to the user page after payment
+            window.location.href = "page.html";
+        };
+    </script>
+</body>
+</html>
